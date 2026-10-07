@@ -1,0 +1,29 @@
+# Archivos de Sistema Operativo y Editores
+.DS_Store
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# Entornos Virtuales y Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+.ipynb_checkpoints/
+
+# R y RStudio
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user/
+
+# Conjuntos de Datos Pesados (Data & Cache)
+# Ignora bases de datos pesadas o archivos grandes
+*.csv
+*.xlsx
+*.parquet
+*.sqlite
+*.db
