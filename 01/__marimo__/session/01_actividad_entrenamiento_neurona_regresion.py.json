@@ -1,0 +1,211 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.25.1",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "ef0032c4370d821ec8e83d0954968f66",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "02834211f87f2b01aad24fb5433c278f",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h1 id=\"actividad-1-entrenamiento-paso-a-paso-de-una-neurona-artificial\">Actividad 1 \u00b7 Entrenamiento paso a paso de una neurona artificial</h1>\n<span class=\"paragraph\"><strong>Deep Learning para Computer Vision</strong></span>\n<span class=\"paragraph\"><strong>Nombre:</strong></span>\n<h2 id=\"objetivo\">Objetivo</h2>\n<span class=\"paragraph\">Implementar y explicar el entrenamiento de una neurona para regresi\u00f3n con\nNumPy, desde una predicci\u00f3n inicial hasta la actualizaci\u00f3n de sus par\u00e1metros.\nAl finalizar, deber\u00e1s relacionar las ecuaciones, las dimensiones de los\narreglos y el comportamiento de la p\u00e9rdida durante el aprendizaje.</span>\n<span class=\"paragraph\">Usaremos una activaci\u00f3n identidad: este modelo corresponde a una regresi\u00f3n\nlineal. En clase lo abordamos como una primera aproximaci\u00f3n al perceptr\u00f3n.</span>\n<h2 id=\"instrucciones-y-entrega\">Instrucciones y entrega</h2>\n<ul>\n<li>Completa las celdas con <code>TODO</code> y las respuestas marcadas con <strong>Tu respuesta</strong>.</li>\n<li>Implementa el modelo con NumPy. No utilices modelos de scikit-learn,\n  TensorFlow, PyTorch ni herramientas de diferenciaci\u00f3n autom\u00e1tica.</li>\n<li>En cada paso incluye explicaci\u00f3n, ecuaci\u00f3n, c\u00f3digo e interpretaci\u00f3n.</li>\n<li>Conserva la convenci\u00f3n de ejemplos en las <strong>columnas</strong> de <code>X</code>.</li>\n<li>Entrega este archivo <code>.py</code> de marimo con tus respuestas, c\u00f3digo y gr\u00e1ficas.\n  Debe ejecutarse completo sin errores y permitir reproducir los resultados.</li>\n<li>Los bloques incompletos devuelven <code>None</code> para que puedas abrir la plantilla.\n  Sustit\u00fayelos por tu implementaci\u00f3n; no dejes resultados escritos a mano\n  como reemplazo del c\u00f3digo.</li>\n</ul>\n<span class=\"paragraph\">Esta actividad estudia la mec\u00e1nica del entrenamiento. Los datos de trabajo\nse usan para entrenar; no se evaluar\u00e1 generalizaci\u00f3n a datos nuevos.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "929444c0977be4b54eaa8e7440299c45",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"1-problema-y-datos\">1. Problema y datos</h2>\n<span class=\"paragraph\">Predeciremos un <strong>puntaje sint\u00e9tico de rendimiento</strong> a partir de dos\ncaracter\u00edsticas num\u00e9ricas ya preparadas. Estos datos son did\u00e1cticos y no\nrepresentan mediciones reales. No requieren limpieza ni estandarizaci\u00f3n.</span>\n<ol>\n<li>Identifica las entradas y la salida del modelo.</li>\n<li>\u00bfPor qu\u00e9 este problema es de regresi\u00f3n?</li>\n<li>\u00bfQu\u00e9 significa un ejemplo de entrenamiento en esta tabla?</li>\n</ol>\n<span class=\"paragraph\"><strong>Respuesta:</strong> \u2026</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "d285e3e1738962b102d4302479686c8e",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "9e639885c4cd6ce3477464630a0ee25a",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "224e78f691da1aaec783aabfe1cc0b1b",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"2-dimensiones-e-inicializacion\">2. Dimensiones e inicializaci\u00f3n</h2>\n<span class=\"paragraph\">Usaremos <marimo-tex class=\"arithmatex\">||(m||)</marimo-tex> ejemplos, <marimo-tex class=\"arithmatex\">||(n_x||)</marimo-tex> caracter\u00edsticas y una salida:</span>\n<table>\n<thead>\n<tr>\n<th>Arreglo</th>\n<th>Forma</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><marimo-tex class=\"arithmatex\">||(X||)</marimo-tex></td>\n<td><marimo-tex class=\"arithmatex\">||((n_x,m)||)</marimo-tex></td>\n</tr>\n<tr>\n<td><marimo-tex class=\"arithmatex\">||(y||)</marimo-tex></td>\n<td><marimo-tex class=\"arithmatex\">||((1,m)||)</marimo-tex></td>\n</tr>\n<tr>\n<td><marimo-tex class=\"arithmatex\">||(W||)</marimo-tex></td>\n<td><marimo-tex class=\"arithmatex\">||((1,n_x)||)</marimo-tex></td>\n</tr>\n<tr>\n<td><marimo-tex class=\"arithmatex\">||(b||)</marimo-tex></td>\n<td><marimo-tex class=\"arithmatex\">||((1,1)||)</marimo-tex></td>\n</tr>\n<tr>\n<td><marimo-tex class=\"arithmatex\">||(\\hat y||)</marimo-tex></td>\n<td><marimo-tex class=\"arithmatex\">||((1,m)||)</marimo-tex></td>\n</tr>\n</tbody>\n</table>\n<span class=\"paragraph\">Completa <code>layer_sizes</code> e <code>initialize_parameters</code>. Inicializa pesos peque\u00f1os\ncon <code>np.random.default_rng(seed)</code> y el sesgo en cero. Para esta neurona,\ninicializar en cero tambi\u00e9n ser\u00eda posible; usaremos una semilla para\ncomparar experimentos de forma reproducible.</span>\n<span class=\"paragraph\"><strong>Tu respuesta:</strong> indica las dimensiones concretas y explica por qu\u00e9\nel producto <marimo-tex class=\"arithmatex\">||(WX||)</marimo-tex> y la suma del sesgo son v\u00e1lidos. \u00bfQu\u00e9 controla la semilla?</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "d962832c06603fc983e081cd77b1d68e",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "938c61c16fba8bfbb26a551fced8aee4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"3-propagacion-hacia-adelante\">3. Propagaci\u00f3n hacia adelante</h2>\n<marimo-tex class=\"arithmatex\">||[Z=WX+b,\\qquad \\hat y=Z||]</marimo-tex><span class=\"paragraph\">Implementa <code>forward_propagation</code>. Recibe los datos y un diccionario de\npar\u00e1metros; devuelve un arreglo con todas las predicciones.</span>\n<span class=\"paragraph\"><strong>Tu respuesta:</strong> \u00bfqu\u00e9 aportan los pesos y el sesgo? \u00bfPor qu\u00e9 usamos\nla funci\u00f3n identidad para la salida de este ejercicio?</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "161fc82edac64c9f7cc0dbb121222b5c",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": "9558ffedd42be48cc3f867cb59372c57",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"4-funcion-de-perdida\">4. Funci\u00f3n de p\u00e9rdida</h2>\n<marimo-tex class=\"arithmatex\">||[J(W,b)=\\frac{1}{2m}\\sum_{i=1}^{m}(\\hat y^{(i)}-y^{(i)})^2||]</marimo-tex><span class=\"paragraph\">Implementa <code>compute_cost</code>: debe devolver un escalar. Utiliza <code>np.sum</code>;\nsi aparecen valores no finitos, investiga su causa.</span>\n<span class=\"paragraph\"><strong>Tu respuesta:</strong> \u00bfpor qu\u00e9 elevamos el error al cuadrado? \u00bfQu\u00e9 efecto\ntiene el factor <marimo-tex class=\"arithmatex\">||(1/2||)</marimo-tex> en la derivada? \u00bfP\u00e9rdida cero implica siempre\nque el modelo funcionar\u00e1 bien con datos nuevos?</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "09f287b9681245b4b8657465d72a227e",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "emfo",
+      "code_hash": "c07eec8a30a11f2b9edc84bdd88dbac4",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"5-gradientes-y-actualizacion\">5. Gradientes y actualizaci\u00f3n</h2>\n<span class=\"paragraph\">Con pesos organizados como <strong>fila</strong>, las ecuaciones son:</span>\n<marimo-tex class=\"arithmatex\">||[\ndZ=\\hat y-y,\\qquad dW=\\frac{1}{m}dZ X^T,\n\\qquad db=\\frac{1}{m}\\sum_{i=1}^{m}dZ^{(i)}\n||]</marimo-tex><marimo-tex class=\"arithmatex\">||[\nW_{\\mathrm{nuevo}}=W-\\alpha dW,\\qquad\nb_{\\mathrm{nuevo}}=b-\\alpha db\n||]</marimo-tex><span class=\"paragraph\">Implementa las dos funciones. Conserva las formas de <code>dW</code> y <code>db</code>;\n<code>np.sum(..., axis=1, keepdims=True)</code> puede ayudarte con el sesgo.\nLa actualizaci\u00f3n debe devolver un diccionario nuevo sin modificar\nlos arreglos originales en el lugar.</span>\n<span class=\"paragraph\"><strong>Tu respuesta:</strong> muestra la derivaci\u00f3n de <marimo-tex class=\"arithmatex\">||(\\partial J/\\partial W_j||)</marimo-tex>\ny <marimo-tex class=\"arithmatex\">||(\\partial J/\\partial b||)</marimo-tex>. Explica por qu\u00e9 restamos el gradiente y\nqu\u00e9 representa la tasa de aprendizaje <marimo-tex class=\"arithmatex\">||(\\alpha||)</marimo-tex>.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Hstk",
+      "code_hash": "9650a888899481d37e97bece8c07854c",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "6b44e6ff1acdcaa433a155623ddc74c9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"6-una-iteracion-a-mano-y-con-numpy\">6. Una iteraci\u00f3n a mano y con NumPy</h2>\n<span class=\"paragraph\">Utiliza exclusivamente los siguientes dos ejemplos y par\u00e1metros:</span>\n<marimo-tex class=\"arithmatex\">||[X_{\\mathrm{manual}}=\\begin{bmatrix}1&amp;2\\\\0&amp;1\\end{bmatrix},\n\\quad y_{\\mathrm{manual}}=\\begin{bmatrix}2&amp;3\\end{bmatrix}||]</marimo-tex><marimo-tex class=\"arithmatex\">||[W_0=\\begin{bmatrix}0&amp;0\\end{bmatrix},\\quad b_0=0,\\quad\\alpha=0.1||]</marimo-tex><span class=\"paragraph\"><strong>Ejercicio:</strong>, desarrolla a mano las predicciones iniciales,\nla p\u00e9rdida, <code>dZ</code>, <code>dW</code>, <code>db</code>, los par\u00e1metros actualizados y la p\u00e9rdida\ndespu\u00e9s de la actualizaci\u00f3n. Escribe las operaciones, no solo el resultado.</span>\n<span class=\"paragraph\"><strong>Tu desarrollo:</strong> \u2026</span>\n<span class=\"paragraph\">Despu\u00e9s, completa la celda para repetir el c\u00e1lculo usando tus funciones.\nMuestra los valores y comprueba que coinciden con tu\ndesarrollo manual. Explica cualquier diferencia por redondeo.</span>\n<span class=\"paragraph\"><strong>Tu interpretaci\u00f3n:</strong> \u00bfdisminuy\u00f3 la p\u00e9rdida? \u00bfC\u00f3mo cambiaron las predicciones?</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "iLit",
+      "code_hash": "26e8ccf1ce581030d95b2abe1f9bb49a",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ZHCJ",
+      "code_hash": "8bb5374dee2f195c6f5643fe25ce30c3",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"7-ciclo-de-entrenamiento\">7. Ciclo de entrenamiento</h2>\n<span class=\"paragraph\">Integra tus funciones en <code>train_model</code>:</span>\n<ol>\n<li>Obt\u00e9n las dimensiones usando los argumentos <code>X</code> e <code>y</code>.</li>\n<li>Inicializa los par\u00e1metros una sola vez.</li>\n<li>Guarda la p\u00e9rdida inicial.</li>\n<li>En cada iteraci\u00f3n: predice, calcula gradientes, actualiza par\u00e1metros\n   y guarda la p\u00e9rdida <strong>despu\u00e9s</strong> de actualizar.</li>\n<li>Devuelve los par\u00e1metros finales y el historial de p\u00e9rdidas.</li>\n</ol>\n<span class=\"paragraph\">El historial debe tener <code>iterations + 1</code> valores: el \u00edndice cero es\nla p\u00e9rdida antes de entrenar. Usa \u00fanicamente los datos recibidos por\nla funci\u00f3n, para que tambi\u00e9n funcione con el conjunto del c\u00e1lculo manual.</span>\n<span class=\"paragraph\">Entrena con 200 iteraciones, tasa 0.1 y semilla 42. Muestra los par\u00e1metros,\nlas predicciones finales, las p\u00e9rdidas inicial y final y una gr\u00e1fica\nde p\u00e9rdida contra n\u00famero de actualizaciones.</span>\n<span class=\"paragraph\"><strong>Tu respuesta:</strong> describe qu\u00e9 se repite y qu\u00e9 se conserva en cada iteraci\u00f3n.\n\u00bfUna iteraci\u00f3n de este entrenamiento utiliza todos los ejemplos?</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ROlb",
+      "code_hash": "ccd72666f98d2e5334d9a206438fe188",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "qnkX",
+      "code_hash": "cd424838bac6e1bcc14405251fe23eb9",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "TqIu",
+      "code_hash": "ff3d39bccb6de5b9b9a8583de132a037",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"8-experimento-con-la-tasa-de-aprendizaje\">8. Experimento con la tasa de aprendizaje</h2>\n<span class=\"paragraph\">Repite el entrenamiento con <marimo-tex class=\"arithmatex\">||(\\alpha\\in\\{0.01,0.1,3.0\\}||)</marimo-tex>.\nUsa los mismos datos, <strong>200 iteraciones y la misma semilla</strong> en todos\nlos casos. Reinicia el entrenamiento del modelo para cada experimento.</span>\n<ul>\n<li>Grafica las tres curvas, con leyenda y ejes etiquetados. Puedes usar\n  escala logar\u00edtmica o paneles separados si las magnitudes lo requieren.</li>\n<li>Construye una tabla con tasa, p\u00e9rdida inicial, p\u00e9rdida final y\n  si observaste convergencia, oscilaciones o divergencia.</li>\n<li>Si aparecen valores no finitos, ind\u00edcalos y explica lo ocurrido.</li>\n</ul>\n<span class=\"paragraph\"><strong>Tu an\u00e1lisis:</strong> \u00bfqu\u00e9 tasa elegir\u00edas entre estas opciones y por qu\u00e9?\n\u00bfPor qu\u00e9 una tasa mayor no garantiza aprender mejor? \u00bfQu\u00e9 puedes\nconcluir con solo 200 iteraciones y qu\u00e9 no puedes afirmar todav\u00eda?</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "Vxnm",
+      "code_hash": "26a84f50adb1c799565d712082a337d1",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "DnEU",
+      "code_hash": "11ec4d374bba74c6c868171dff50583d",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"9-conclusiones-y-conexion-con-deep-learning\">9. Conclusiones y conexi\u00f3n con Deep Learning</h2>\n<span class=\"paragraph\">Responde con referencia a tus resultados:</span>\n<ol>\n<li>\u00bfQu\u00e9 significa que la neurona haya aprendido? Relaciona par\u00e1metros,\n   predicciones y p\u00e9rdida.</li>\n<li>\u00bfQu\u00e9 diferencia existe entre calcular gradientes y actualizar par\u00e1metros?</li>\n<li>\u00bfC\u00f3mo comprobar\u00edas si una implementaci\u00f3n entrega resultados correctos,\n   adem\u00e1s de observar que la p\u00e9rdida disminuye?</li>\n<li>Si usamos sigmoide y entrop\u00eda cruzada para clasificaci\u00f3n binaria,\n   \u00bfqu\u00e9 partes del proceso cambian y cu\u00e1les conservan su estructura?</li>\n</ol>\n<span class=\"paragraph\"><strong>Tus conclusiones:</strong> \u2026</span>\n<h2 id=\"rubrica\">R\u00fabrica</h2>\n<table>\n<thead>\n<tr>\n<th>Criterio</th>\n<th style=\"text-align: right;\">Valor</th>\n<th>Evidencia esperada</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Implementaci\u00f3n correcta</td>\n<td style=\"text-align: right;\">40 %</td>\n<td>Dimensiones coherentes, funciones propias, actualizaci\u00f3n y ciclo completos; coincidencia con la iteraci\u00f3n manual.</td>\n</tr>\n<tr>\n<td>Explicaci\u00f3n matem\u00e1tica</td>\n<td style=\"text-align: right;\">30 %</td>\n<td>Ecuaciones, derivaci\u00f3n de gradientes y explicaci\u00f3n del papel de cada paso.</td>\n</tr>\n<tr>\n<td>Experimentaci\u00f3n e interpretaci\u00f3n</td>\n<td style=\"text-align: right;\">20 %</td>\n<td>Comparaci\u00f3n controlada de tasas, gr\u00e1ficas, tabla y conclusiones sustentadas.</td>\n</tr>\n<tr>\n<td>Claridad y reproducibilidad</td>\n<td style=\"text-align: right;\">10 %</td>\n<td>Notebook ordenado, semilla fija, respuestas completas y ejecuci\u00f3n sin errores.</td>\n</tr>\n</tbody>\n</table>\n<span class=\"paragraph\">Revisa tus resultados antes de entregar.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ulZA",
+      "code_hash": null,
+      "outputs": [],
+      "console": []
+    }
+  ]
+}
