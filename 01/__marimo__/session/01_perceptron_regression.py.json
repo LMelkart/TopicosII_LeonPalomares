@@ -1,0 +1,201 @@
+{
+  "version": "1",
+  "metadata": {
+    "marimo_version": "0.25.1",
+    "script_metadata_hash": null
+  },
+  "cells": [
+    {
+      "id": "Hbol",
+      "code_hash": "8e250e4d0835f4bd2525f5a6e27285db",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "MJUe",
+      "code_hash": "3a329a7daa826b54e66858065f936afa",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"perceptron-regresion\">Perceptron (regresi\u00f3n)</h2>\n<span class=\"paragraph\"><img alt=\"Perceptron\" src=\"images/perceptron.png\" /></span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "vblA",
+      "code_hash": "4a51a738145f0a06cf1180ab52088b58",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "bkHC",
+      "code_hash": "e55cd28cf10d0b2606e00b68ee7b461a",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "lEQa",
+      "code_hash": "ee629337fe0edf024c7a675c597edea9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"preprocessing-pipeline\">Preprocessing pipeline</h2></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "PKri",
+      "code_hash": "428111dd47bbb1937cd3a74af4af371a",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Xref",
+      "code_hash": "1ed75a8909a08ecfc46113e8620cb77b",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "SFPL",
+      "code_hash": "07b3b361c49132800a9726eb0adbc891",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "BYtC",
+      "code_hash": "abde535a8fca8fbe1f5241c44772701b",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "RGSE",
+      "code_hash": null,
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Kclp",
+      "code_hash": "708abe8f9864ab9ad3a7972d5fb6cae6",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h2 id=\"implementacion-de-una-red-neuronal-modelo-de-regresion-lineal\">Implementaci\u00f3n de una red neuronal (modelo de regresion lineal)</h2>\n<h3 id=\"paso-1\">Paso 1</h3>\n<span class=\"paragraph\">Definimos dimensiones del perceptron</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "emfo",
+      "code_hash": "60cfed9d7cf267304b415bfc9cbee587",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Hstk",
+      "code_hash": "bd9b7a127f6f9d374463a322cc67030e",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "nWHF",
+      "code_hash": "021ce5258797970b5b03d1347d8659ff",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"paso-2\">Paso 2</h3>\n<span class=\"paragraph\">Inicializar pesos (weights) <marimo-tex class=\"arithmatex\">||(w||)</marimo-tex> y sesgo (bias) <marimo-tex class=\"arithmatex\">||(b||)</marimo-tex> de manera aleatoria.</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "iLit",
+      "code_hash": "92fef523d477ff6b25b5f339b4eab00a",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ZHCJ",
+      "code_hash": "eb21aea75a736f6b30d30514f0d2056b",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ROlb",
+      "code_hash": null,
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "qnkX",
+      "code_hash": "0ea4552c5285915fb34bfcea6662b4c9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"paso-3\">Paso 3</h3>\n<span class=\"paragraph\">Forward propagation (inferencia)</span></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "TqIu",
+      "code_hash": "00c7d2c7fdd1ea71910d96db33d15e22",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Vxnm",
+      "code_hash": "2b8a3c622125ea4313d4abf9f10faab4",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "DnEU",
+      "code_hash": "35ec548ca48aa4f94f9fb5f5d08385b9",
+      "outputs": [
+        {
+          "type": "data",
+          "data": {
+            "text/markdown": "<span class=\"markdown prose dark:prose-invert contents\"><h3 id=\"paso-4\">Paso 4</h3>\n<span class=\"paragraph\">Calcular el error (funci\u00f3n de p\u00e9rdida, Loss Function)</span>\n<span class=\"paragraph\">La funci\u00f3n de costo a ser utilizada por el modelo es la siguiente:</span>\n<marimo-tex class=\"arithmatex\">||[\\begin{equation}\n\\mathcal{L} (w,b) = \\frac{1}{2m} \\sum_{i=1}^{m} (y^{(i)} - \\hat{y}^{(i)})^2\n\\end{equation}||]</marimo-tex></span>"
+          }
+        }
+      ],
+      "console": []
+    },
+    {
+      "id": "ulZA",
+      "code_hash": "cf62a67dd424e8c062417c174042f705",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ecfG",
+      "code_hash": "bf38cd25877b951aa8bd29c1cfcc678e",
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "Pvdt",
+      "code_hash": null,
+      "outputs": [],
+      "console": []
+    },
+    {
+      "id": "ZBYS",
+      "code_hash": null,
+      "outputs": [],
+      "console": []
+    }
+  ]
+}
